@@ -1,6 +1,7 @@
 package dev.grigory.rna_transcription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,5 +27,9 @@ private DnaTranscription dnaTranscription;
     @Test
     void testEmptyString() {
         assertEquals("", dnaTranscription.transcribe(""));
+    }
+    @Test
+    void testInvalidCharacter() {
+        assertThrows(IllegalArgumentException.class, () -> dnaTranscription.transcribe("B"));
     }
 }
