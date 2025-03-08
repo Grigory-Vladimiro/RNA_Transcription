@@ -23,4 +23,8 @@ private DnaTranscription dnaTranscription;
     void testMultipleNucleotides() {
         assertEquals("UGCACCAGAAUU", dnaTranscription.transcribe("ACGTGGTCTTAA"));
     }
+    @Test
+    void testEmptyString() {
+        assertEquals("", dnaTranscription.transcribe(""));
+    }
 }
