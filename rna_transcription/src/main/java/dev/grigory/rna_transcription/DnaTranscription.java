@@ -1,5 +1,7 @@
 package dev.grigory.rna_transcription;
 
+import java.util.Scanner;
+
 public class DnaTranscription {
     public String transcribe(String dna) {
         StringBuilder rna = new StringBuilder();
@@ -15,5 +17,18 @@ public class DnaTranscription {
         }
 
         return rna.toString();
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a DNA sequence: ");
+        String dna = scanner.nextLine();
+
+        DnaTranscription transcription = new DnaTranscription();
+        try {
+            String rna = transcription.transcribe(dna);
+            System.out.println("Transcribed RNA: " + rna);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
