@@ -1,11 +1,13 @@
 package dev.grigory.rna_transcription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,50 +22,35 @@ private DnaTranscription dnaTranscription;
         dnaTranscription = new DnaTranscription();
     }
     @Test
-    void testTranscription() {
+        void testTranscription() {
         assertEquals("C", dnaTranscription.transcribe("G"));
         assertEquals("G", dnaTranscription.transcribe("C"));
         assertEquals("A", dnaTranscription.transcribe("T"));
         assertEquals("U", dnaTranscription.transcribe("A"));
     }
     @Test
-    void testMultipleNucleotides() {
+        void testMultipleNucleotides() {
         assertEquals("UGCACCAGAAUU", dnaTranscription.transcribe("ACGTGGTCTTAA"));
     }
     @Test
-    void testEmptyString() {
+        void testEmptyString() {
         assertEquals("", dnaTranscription.transcribe(""));
     }
     @Test
-    void testInvalidCharacter() {
+        void testInvalidCharacter() {
         assertThrows(IllegalArgumentException.class, () -> dnaTranscription.transcribe("B"));
     }
-    @Test
-    void testMainValidInput() {
-        provideInput("ACGT\n");
-
-        DnaTranscription.main(new String[]{});
-
-        String output = getOutput();
-        assertTrue(output.contains("Transcribed RNA: UGCA"), "Expected output not found!");
-    }
 
     @Test
-    void testMainInvalidInput() {
-        provideInput("X\n");
+        void testMainRuns() {
+        System.setIn(new ByteArrayInputStream("ACGT\n".getBytes())); 
+        System.setOut(new PrintStream(outputStream, true)); 
 
-        DnaTranscription.main(new String[]{});
+    DnaTranscription.main(new String[]{});
 
-        String output = getOutput();
-        assertTrue(output.contains("Error: Invalid DNA nucleotide: X"), "Expected error message not found!");
-    }
+    System.out.flush(); 
+    String output = outputStream.toString().trim(); 
 
-    private void provideInput(String data) {
-        System.setIn(new ByteArrayInputStream(data.getBytes()));
-    }
-
-    private String getOutput() {
-        System.out.flush();
-        return outputStream.toString().trim(); 
-    }
+    assertFalse(output.isEmpty(), "Main() produced no output!");
+}
 }

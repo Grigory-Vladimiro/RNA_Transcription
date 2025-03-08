@@ -19,17 +19,18 @@ public class DnaTranscription {
         return rna.toString();
     }
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a DNA sequence:");  
+        System.out.println("Enter a DNA sequence:");
 
-        String dna = scanner.nextLine();
-        DnaTranscription transcription = new DnaTranscription();
+        try (Scanner scanner = new Scanner(System.in)) { 
+            String dna = scanner.nextLine();
+            DnaTranscription transcription = new DnaTranscription();
 
-        try {
-            String rna = transcription.transcribe(dna);
-            System.out.println("Transcribed RNA: " + rna);  
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());  
+            try {
+                String rna = transcription.transcribe(dna);
+                System.out.println("Transcribed RNA: " + rna);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 }
