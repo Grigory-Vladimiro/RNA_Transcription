@@ -20,15 +20,16 @@ public class DnaTranscription {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a DNA sequence: ");
-        String dna = scanner.nextLine();
+        System.out.println("Enter a DNA sequence:");  
 
+        String dna = scanner.nextLine();
         DnaTranscription transcription = new DnaTranscription();
+
         try {
             String rna = transcription.transcribe(dna);
-            System.out.println("Transcribed RNA: " + rna);
+            System.out.println("Transcribed RNA: " + rna);  
         } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());  
         }
     }
 }
